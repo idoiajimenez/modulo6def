@@ -3,15 +3,16 @@ pipeline {
     stages {
         stage('Documentación') { 
             steps {
-                echo "A documentar!"
+                sh 'make doc'
             }
-        }
-    }
-    post {
-      always {
-        //publishCppcheck pattern: 'reports/cppcheck/report.xml'
-        //junit 'reports/tests/*.xml' 
-	 publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
-      }
+	    post {
+      		always {
+			publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'html', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
+      		}
+    	    }
+        	
+	}
 
+    }
+    
 }

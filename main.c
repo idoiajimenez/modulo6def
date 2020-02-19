@@ -9,6 +9,10 @@
 # include <stdio.h>
 # include "armstrong.h"
 
+/**
+*
+* ESta es la documentación del main
+*/
 
 int main(){   
 	int n;   
