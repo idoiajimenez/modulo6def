@@ -5,6 +5,7 @@ pipeline {
             steps {
                 sh 'make doc'
             }
+	    
 	    post {
       		always {
 			publishHTML([allowMissing: false, 
@@ -17,6 +18,23 @@ pipeline {
     	    }
         	
 	}
+        stage('CppCheck') { 
+            steps {
+                sh 'make cppcheck-xml'
+            }
+    	    post {
+      		always {
+        		publishCppcheck displayErrorSeverity: true, 
+			displayNoCategorySeverity: true, 
+			displayPerformanceSeverity: true, 
+			displayPortabilitySeverity: true, 
+			displayStyleSeverity: true, 
+			displayWarningSeverity: true, 
+			failureThreshold: '1', 
+			pattern: 'reports/cppcheck/report.xml' 
+     		 }
+    	    }
+        }
 
     }
     
